@@ -1,0 +1,29 @@
+Exercici 1:
+db.empleats.find({empleat_id: '104'}, {})
+
+Exercici 2:
+db.empleats.find({'departament.nom': 'IT'}).count()
+
+Exercici 3:
+db.empleats.find({salari: {$gte: 5000}}, {nom: 1, cognoms:1, salari:1})
+
+Exercici 4:
+db.empleats.find({cap: {$exists: false}}, {nom: 1, cognoms:1})
+
+Exercici 5:
+db.empleats.find({data_contractacio: {$gte: new Date('1987-01-01'), $lte: new Date('1987-01-31')}}, {})
+
+Exercici 6:
+db.empleats.find({telefon: /.*2$/}, {})
+
+Exercici 7:
+db.empleats.aggregate([
+  {$group: {_id: '$departament.nom', qt_empleats: {$sum: 1}, salari_avg: {$avg: '$salari'}}},
+  {$match: {_id: {$ne: null}}}
+])
+
+Exercici 8:
+db.empleats.aggregate([
+  {$group: {_id: '$departament.nom', massa_salarial: {$sum: '$salari'}}},
+  {$match: {massa_salarial: {$gte: 19000}}}  
+])
